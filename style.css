@@ -163,11 +163,31 @@ header {
   grid-area: sidebar-left;
 }
 
-.sidebar-left section {
+.sidebar-left-header{
+  padding: 20px;
+}
+
+#patient-info{
   display: flex;
   flex-direction: column;
   overflow-y: clip;
   padding: 20px;
+  height: 75vh;
+  overflow-y: scroll;
+}
+
+#patient-info::-webkit-scrollbar{
+  width: 6px;
+}
+
+#patient-info::-webkit-scrollbar-track{
+  width: 5px;
+  background: hsl(210, 12%, 97%);
+}
+
+#patient-info::-webkit-scrollbar-thumb{
+  background-color: hsl(200, 77%, 12%);
+  border-radius: 3px;
 }
 
 .sidebar-left-header {
