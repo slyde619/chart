@@ -257,3 +257,93 @@ header {
 main {
   grid-area: main;
 }
+
+
+/* Lab Results */
+.lab-test{
+    padding-block: 32px;
+    padding-inline: 20px;
+    display: grid;
+    grid-auto-rows: auto;
+    row-gap: 1.25em;
+}
+
+.lab__test-top h3{
+  text-transform: capitalize;
+}
+
+.lab__test-results{
+  min-height: 30vh;
+  overflow-y: scroll;
+}
+
+.lab-result{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .75em;
+  border-radius: .25em;
+  transition: .3s ease-in-out;
+  transition-property: background, transform;
+}
+
+.lab__test-results::-webkit-scrollbar{
+  width: 6px;
+}
+
+.lab__test-results::-webkit-scrollbar-track{
+  width: 5px;
+  background: hsl(210, 12%, 97%);
+}
+
+.lab__test-results::-webkit-scrollbar-thumb{
+  background-color: hsl(200, 77%, 12%);
+  border-radius: 3px;
+}
+
+.lab-result:hover{
+  background: #F6F7F8;
+  transform: scale(1.0025);
+}
+
+.download-result{
+  display: inline-block;
+  font-size: 1.4rem;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+/* Main */
+.chart-top{
+  padding-block: 32px;
+  padding-inline: 20px;
+  margin-bottom: 3em;
+}
+
+.diagnostic-list{
+  padding-block: 32px;
+  padding-inline: 20px;
+}
+
+.diagnostic-list thead{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 3em;
+}
+
+.diagnosis-header{
+  display: flex; 
+  grid-template-columns: repeat(3, 1fr); 
+  justify-content: space-between;
+  align-items: center; 
+  background: #F6F7F8;
+  border-radius: 24px;
+  padding-block: 15px 14px;
+  padding-inline: 1.25em;
+  gap: 2em;
+}
+
+th{
+  display: inline-block;
+}
