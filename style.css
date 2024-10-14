@@ -301,7 +301,7 @@ main {
 }
 
 .lab__test-results{
-  min-height: 30vh;
+  height: 28vh;
   overflow-y: scroll;
 }
 
@@ -309,7 +309,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: .75em;
+  padding: .65em;
   border-radius: .25em;
   transition: .3s ease-in-out;
   transition-property: background, transform;
@@ -331,7 +331,7 @@ main {
 
 .lab-result:hover{
   background: #F6F7F8;
-  transform: scale(1.0025);
+  transform: scale(1);
 }
 
 .download-result{
@@ -361,6 +361,25 @@ table{
 
 thead, tbody, tr, th{
   display: block;
+}
+
+tbody{
+  height: 15vh;
+  overflow-y: scroll;
+}
+
+tbody::-webkit-scrollbar{
+  width: 6px;
+}
+
+tbody::-webkit-scrollbar-track{
+  width: 5px;
+  background: hsl(210, 12%, 97%);
+}
+
+tbody::-webkit-scrollbar-thumb{
+  background-color: hsl(200, 77%, 12%);
+  border-radius: 3px;
 }
 
 .diagnosis-header{
@@ -397,6 +416,7 @@ thead, tbody, tr, th{
   & td{
     font-size: 14px;
     text-transform: capitalize;
+    text-align: left;
   }
 
 }
