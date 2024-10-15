@@ -20,7 +20,9 @@ body {
   background: #f6f7f8 padding-box;
   font-family: "Manrope", sans-serif;
 }
-
+.m-t-20 {
+  margin-top: 20px;
+}
 
 .btn{
     border: none;
@@ -398,16 +400,6 @@ padding: 15px;
   padding-inline: 20px;
 }
 
-
-table{
-  width: 100%;
-  border-collapse: collapse;
-}
-
-thead, tbody, tr, th{
-  display: block;
-}
-
 tbody{
   height: 15vh;
   overflow-y: scroll;
@@ -464,4 +456,37 @@ tbody::-webkit-scrollbar-thumb{
     text-align: left;
   }
 
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border-bottom: 1px solid gray;
+  text-align: left;
+  padding: 8px;
+}
+
+.first-row th {
+  background-color: #F6F7F8;
+  border-bottom: none;
+}
+
+/* Apply border-radius directly to th */
+.first-row th:first-child {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px 
+}
+
+.first-row th:last-child {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px 
+}
+
+/* Ensure the border-collapse is separate to see rounded corners */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
 }

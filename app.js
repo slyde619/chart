@@ -120,6 +120,15 @@ function displayPatientDetails(patient) {
     if (patient.diagnosis_history) {
         renderDiagnosisHistoryChart(patient.diagnosis_history);
     }
+    if (patient.lab_results) {
+        renderLabResults(patient.lab_results)
+    }
+
+    if (patient.diagnostic_list && Array.isArray(patient.diagnostic_list)) {
+        renderDiagnosticList(patient.diagnostic_list);
+    } else {
+        console.log("No diagnostic history available for this patient.");
+    }
 }
 
 // Function to create/update the chart with diagnosis history data
@@ -162,8 +171,10 @@ function renderDiagnosisHistoryChart(diagnosisHistory) {
     });
     // Calculate and display blood pressure stats
     const stats = calculateBloodPressureStats(diagnosisHistory);
+    // const diagnostic = renderDiagnosticList(diagnosticList);
     const statsContainer = document.getElementById('blood-pressure-stats');
     const bioContainer = document.getElementById('bioData');
+
     statsContainer.innerHTML = `
         <div class="card-layout">
             <h6><li>Systolic</li></h6>
@@ -247,4 +258,48 @@ function calculateBloodPressureStats(diagnosisHistory) {
         lungs,
         temperature,
     };
+}
+
+function renderDiagnosticList(diagnosticList) {
+    const diagnosticContainer = document.getElementById('diagnostic-list');
+
+    diagnosticList.forEach(entry => {
+        const listName = entry.name;
+        const listDescription = entry.description;
+        const listStatus = entry.status;
+
+        diagnosticContainer.innerHTML = `
+        <table>
+                <tr class="first-row">
+                  <th>Problem/Diagnosis</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                </tr>
+                <tr>
+                  <td>${listName}</td>
+                  <td>${listDescription}</td>
+                  <td>${listStatus}</td>
+                </tr>
+              </table>
+        `;
+
+        
+    })
+
+
+}
+
+function renderLabResults(labResults) {
+    const labResultsContainer = document.getElementById('lab__test-results');
+
+    labResults.forEach(entry => {
+        const testName = entry;
+        labResultsContainer.innerHTML += `
+        <div class="lab-result">
+              <p>${testName}</p>
+              <a href="" class="ri-download-2-line download-result">
+              </a>
+            </div>
+        `
+    });
 }
