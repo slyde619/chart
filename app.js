@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const patientInfoContainer = document.getElementById("patient-info");
             patientInfoContainer.innerHTML = '';
 
-            data.forEach(patient => {
+            data.forEach((patient, index) => {
                 const patientSection = document.createElement("section");
                 patientSection.classList.add("patient-info");
 
@@ -44,8 +44,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 patientInfoContainer.appendChild(patientSection);
 
-                // Add click event listener to each patient section
                 patientSection.addEventListener('click', () => displayPatientDetails(patient));
+
+                // Display the first patient's details automatically
+                if (index === 0) {
+                    displayPatientDetails(patient);
+                }
             });
         } else {
             console.error('Patients data is not available or not in the expected format.');
@@ -54,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function() {
     .catch(error => console.error('Error fetching the data:', error));
 });
 
-// Function to display patient details
 function displayPatientDetails(patient) {
     const detailsContainer = document.getElementById('patient-details-container');
     const detailsContent = document.getElementById('patient-details');
@@ -121,7 +124,7 @@ function displayPatientDetails(patient) {
         renderDiagnosisHistoryChart(patient.diagnosis_history);
     }
     if (patient.lab_results) {
-        renderLabResults(patient.lab_results)
+        renderLabResults(patient.lab_results);
     }
 
     if (patient.diagnostic_list && Array.isArray(patient.diagnostic_list)) {
