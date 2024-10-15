@@ -99,7 +99,18 @@
           <!-- Patient info will be dynamically inserted here -->
       </section>
       </aside>
-      <main class="card">Main</main>
+      <main class="card">
+        <h3>Diagnosis History</h3>
+        <div class="chart-layout">
+          <div class="chart-card">
+            <canvas id="diagnosisHistoryChart" width="400" height="200"></canvas>
+          </div>
+          <div id="blood-pressure-stats"></div>
+        </div>
+        <div class="bio-stat" id="bioData">
+         
+        </div>
+      </main>
       <aside class="sidebar-right card" id="patient-details-container" style="display: none;">
         <div id="patient-details" class="card-top">
             <!-- Patient details will be inserted here by JavaScript -->
@@ -107,5 +118,6 @@
     </aside>
     </div>
     <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </body>
 </html>

@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
     .catch(error => console.error('Error fetching the data:', error));
 });
 
+// Function to display patient details
 function displayPatientDetails(patient) {
     const detailsContainer = document.getElementById('patient-details-container');
     const detailsContent = document.getElementById('patient-details');
@@ -116,9 +117,134 @@ function displayPatientDetails(patient) {
 
     detailsContainer.style.display = 'block';
 
-    // Add event listener to close button
-    const closeButton = document.getElementById('close-details');
-    closeButton.addEventListener('click', () => {
-        detailsContainer.style.display = 'none';
+    if (patient.diagnosis_history) {
+        renderDiagnosisHistoryChart(patient.diagnosis_history);
+    }
+}
+
+// Function to create/update the chart with diagnosis history data
+function renderDiagnosisHistoryChart(diagnosisHistory) {
+    const labels = diagnosisHistory.map(entry => `${entry.month} ${entry.year}`);
+    const systolicData = diagnosisHistory.map(entry => entry.blood_pressure.systolic.value);
+    const diastolicData = diagnosisHistory.map(entry => entry.blood_pressure.diastolic.value);
+
+    const ctx = document.getElementById('diagnosisHistoryChart').getContext('2d');
+
+    // Check if the chart instance exists and is a Chart instance before destroying it
+    if (window.diagnosisHistoryChart instanceof Chart) {
+        window.diagnosisHistoryChart.destroy();
+    }
+
+    // Create the new chart
+    window.diagnosisHistoryChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Systolic Blood Pressure',
+                    data: systolicData,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: false,
+                    tension: 0.4
+                },
+                {
+                    label: 'Diastolic Blood Pressure',
+                    data: diastolicData,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    fill: false,
+                    tension: 0.4
+                }
+            ]
+        }
     });
+    // Calculate and display blood pressure stats
+    const stats = calculateBloodPressureStats(diagnosisHistory);
+    const statsContainer = document.getElementById('blood-pressure-stats');
+    const bioContainer = document.getElementById('bioData');
+    statsContainer.innerHTML = `
+        <div class="card-layout">
+            <h6><li>Systolic</li></h6>
+            <h4><b>${stats.highestSystolic}</b></h4>
+            <small><img src="img/arrowUp.svg" />  ${stats.highestSystolicLevel}</small>
+            <hr/>
+            <h6><li>Diastolic</li></h6>
+            <h4><b>${stats.lowestDiastolic}</b></h4>
+            <small><img src="img/arrowDown.svg" />  ${stats.lowestSystolicLevel}</small>
+        </div>
+    `;
+    bioContainer.innerHTML = `
+    <div class="heartRate">
+            <img src="img/HeartBPM.svg" alt=""><br/>
+            <small>Heart Rate</small>
+            <h1><b>${stats.heart.value} bpm</b></h1>
+            <small>${stats.heart.levels}</small>
+          </div>
+          <div class="temperature">
+            <img src="img/temperature.svg" alt=""><br/>
+            <small>Temperature Rate</small>
+            <h1><b>${stats.temperature.value} F</b></h1>
+            <small>${stats.temperature.levels}</small>
+          </div>
+         <div class="respiratory">
+            <img src="img/respiratory rate.svg" alt=""><br/>
+            <small>Respiratory Rate</small>
+            <h1><b>${stats.lungs.value} bpm</b></h1>
+            <small>${stats.lungs.levels}</small>
+          </div>
+            `;
+}
+
+// Function to calculate blood pressure stats
+function calculateBloodPressureStats(diagnosisHistory) {
+    let highestSystolic = -Infinity;
+    let lowestDiastolic = Infinity;
+    let highestSystolicLevel = '';
+    let highestSystolicDate = '';
+    let lowestDiastolicDate = '';
+    let lowestSystolicLevel = '';
+    let heart = '';
+    let lungs = ''
+    let temperature = '';
+
+    diagnosisHistory.forEach(entry => {
+        const systolic = entry.blood_pressure.systolic.value;
+        const systolicLevel = entry.blood_pressure.systolic.levels;
+        const diastolicLevel = entry.blood_pressure.diastolic.levels;
+        const diastolic = entry.blood_pressure.diastolic.value;
+        const heartRate = entry.heart_rate;
+        const respiratoryRate = entry.respiratory_rate;
+        const temperatureRate = entry.temperature;
+        const date = `${entry.month} ${entry.year}`;
+
+
+        heart = heartRate;
+        lungs = respiratoryRate;
+        temperature = temperatureRate;
+        if (systolic > highestSystolic) {
+            highestSystolic = systolic;
+            highestSystolicLevel = systolicLevel
+            highestSystolicDate = date;
+        }
+
+        if (diastolic < lowestDiastolic) {
+            lowestDiastolic = diastolic;
+            lowestSystolicLevel = diastolicLevel;
+            lowestDiastolicDate = date;
+        }
+    });
+
+    return {
+        highestSystolic,
+        highestSystolicDate,
+        lowestDiastolic,
+        lowestDiastolicDate,
+        highestSystolicLevel,
+        lowestSystolicLevel,
+        heart,
+        lungs,
+        temperature,
+    };
 }

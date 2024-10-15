@@ -139,6 +139,7 @@ header {
 }
 
 .card {
+  padding: 20px;
   background: var(--bg-white);
   border-radius: var(--border-sm);
 }
@@ -256,4 +257,48 @@ header {
 
 main {
   grid-area: main;
+}
+.chart-layout {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  background: #F4F0FE 0% 0% no-repeat padding-box;
+  border-radius: var(--border-sm);
+  padding: 10px;
+  margin: 20px 0;
+}
+hr {
+  margin: 10px 0;
+}
+.card-layout {
+margin: 10px 0;
+}
+.bio-stat {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 20px;
+  justify-content: space-around;
+}
+.respiratory {
+  width: 228px;
+height: 242px;
+background: #E0F3FA 0% 0% no-repeat padding-box;
+border-radius: 12px;
+opacity: 1;
+padding: 15px;
+}
+.temperature {
+  width: 228px;
+height: 242px;
+background: #FFE6E9 0% 0% no-repeat padding-box;
+border-radius: 12px;
+opacity: 1;
+padding: 15px;
+}
+.heartRate {
+  width: 228px;
+height: 242px;
+background: #FFE6F1 0% 0% no-repeat padding-box;
+border-radius: 12px;
+opacity: 1;
+padding: 15px;
 }
