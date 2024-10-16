@@ -182,11 +182,11 @@ function renderDiagnosisHistoryChart(diagnosisHistory) {
         <div class="card-layout">
             <h6><li>Systolic</li></h6>
             <h4><b>${stats.highestSystolic}</b></h4>
-            <small><img src="img/arrowUp.svg" />  ${stats.highestSystolicLevel}</small>
+            <small><img src="img/ArrowUp.svg" />  ${stats.highestSystolicLevel}</small>
             <hr/>
             <h6><li>Diastolic</li></h6>
             <h4><b>${stats.lowestDiastolic}</b></h4>
-            <small><img src="img/arrowDown.svg" />  ${stats.lowestSystolicLevel}</small>
+            <small><img src="img/ArrowDown.svg" />  ${stats.lowestSystolicLevel}</small>
         </div>
     `;
     bioContainer.innerHTML = `
